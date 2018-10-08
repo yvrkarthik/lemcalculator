@@ -11,7 +11,7 @@ interface IInputTextboxProps {
 }
 // TODO:
 // 1. Need set the alignment of the textbox in the grid
-//    and make it center across the devices
+//    and make it center across the devices -- done
 // 2. Rename the bootstrap naming from the elements
 // 3. Hide the bigger input group on smaller screen sizes
 // input-group-sm
@@ -21,11 +21,11 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
   return (
     <div className="container">
       <div className="form-group row">
-        <label className="col-sm-4 col-5 col-md-5 col-lg-4 col-xl-4 col-form-label text-right">
+        <label className="col-sm-4 col-5 col-md-4 col-lg-4 col-xl-4 col-form-label text-right">
           {props.textboxLabel}
         </label>
         {props.isPercentageTextbox ? (
-          <div className="input-group  col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
+          <div className="input-group col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
             <input
               type="text"
               className="form-control"
