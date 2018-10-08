@@ -6,7 +6,6 @@ export interface ILvrCalculatorState {
   percentageOfDeposit: string;
   propertyValue: string;
   myDeposit: string;
-  displayError: boolean;
   errorText: string;
 }
 
@@ -18,7 +17,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       percentageOfDeposit: "",
       propertyValue: "",
       myDeposit: "",
-      displayError: false,
       errorText: ""
     };
     this.handleMyDeposit = this.handleMyDeposit.bind(this);

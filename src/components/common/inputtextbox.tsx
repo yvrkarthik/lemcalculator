@@ -10,11 +10,9 @@ interface IInputTextboxProps {
   handleOnChange?: any;
 }
 // TODO:
-// 1. Need set the alignment of the textbox in the grid
-//    and make it center across the devices -- done
-// 2. Rename the bootstrap naming from the elements
-// 3. Hide the bigger input group on smaller screen sizes
-// input-group-sm
+// 1. Rename the bootstrap naming from the elements
+
+
 const InputTextbox: React.SFC<IInputTextboxProps> = (
   props: IInputTextboxProps
 ) => {
