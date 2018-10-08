@@ -1,11 +1,10 @@
 import * as React from "react";
 import InputTextbox from "./common/inputtextbox";
-import PercentageCalculator from "./common/percentagecalculator";
 
 export interface ILvrCalculatorState {
-  percentageOfDeposit: number;
-  propertyValue: number;
-  myDeposit: number;
+  percentageOfDeposit: string;
+  propertyValue: string;
+  myDeposit: string;
 }
 
 class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
@@ -13,20 +12,14 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     super(props);
 
     this.state = {
-      percentageOfDeposit: 0,
-      propertyValue: 0,
-      myDeposit: 0
+      percentageOfDeposit: "",
+      propertyValue: "",
+      myDeposit: ""
     };
     this.handleMyDeposit = this.handleMyDeposit.bind(this);
     this.handlePropertyPrice = this.handlePropertyPrice.bind(this);
   }
-  componentDidMount() {
-    this.setState(() => ({
-      percentageOfDeposit: 0,
-      propertyValue: 0,
-      myDeposit: 0
-    }));
-  }
+
   render() {
     return (
       <React.Fragment>
@@ -38,7 +31,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           inputGroupText={"$"}
           isPercentageTextbox={false}
           handleOnChange={this.handlePropertyPrice}
-          inputValue={this.state.propertyValue}
+          inputValue={this.state.propertyValue.toString()}
         />
         <InputTextbox
           textboxIdentifier={"myDepositTextBox"}
@@ -48,14 +41,16 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           inputGroupText={"$"}
           isPercentageTextbox={false}
           handleOnChange={this.handleMyDeposit}
-          inputValue={this.state.myDeposit}
+          inputValue={this.state.myDeposit.toString()}
         />
-        <PercentageCalculator
+        <InputTextbox
+          textboxIdentifier={"myDepositPercentageTextBox"}
           isReadOnly={true}
           textboxLabel="% of Deposit&nbsp;:"
-          placeHolder="20"
-          inputGroupText={"%"}
-          inputValue={this.state.percentageOfDeposit.toString()}
+          placeHolder="0"
+          inputGroupText={"$"}
+          isPercentageTextbox={true}
+          inputValue={this.state.percentageOfDeposit}
         />
       </React.Fragment>
     );
@@ -67,8 +62,8 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     const propertyVal = e.target.value;
     if (propertyVal === 0 || propertyVal === "") {
       this.setState(() => ({
-        myDeposit: 0,
-        percentageOfDeposit: 0
+        myDeposit: "",
+        percentageOfDeposit: ""
       }));
     }
     this.setState(() => ({
@@ -76,20 +71,29 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }));
   }
 
-  // 1. validate the input
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
-    // check if the property value is 0 or negative number
-    if (this.state.propertyValue <= 0) {
+    /*
+    Return :
+    if the propertyValue is empty
+    if the propertyValue characters are less than 4
+    */
+    if (
+      this.state.propertyValue === "" ||
+      this.state.propertyValue.length <= 4
+    ) {
       this.setState(() => ({
-        myDeposit: 0,
-        percentageOfDeposit: 0
+        myDeposit: "",
+        percentageOfDeposit: ""
       }));
       return;
     } else {
+      /*
+      Convert the string to Int for calculating the %
+      */
       const percentageOfDeposit = this.calculatePercentage(
         myDepositValue,
-        this.state.propertyValue
+        parseInt(this.state.propertyValue)
       );
       this.setState(() => ({
         myDeposit: myDepositValue,
@@ -98,9 +102,10 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }
   }
 
-  // calculate the percentage
-  private calculatePercentage(deposit: number, propertyPrice: number): number {
-    return Math.round((deposit / propertyPrice) * 100);
+  // calculate the percentage and display the result with 2 decimals only
+  private calculatePercentage(deposit: number, propertyPrice: number): string {
+    const percentage = ((deposit / propertyPrice) * 100).toPrecision(2);
+    return percentage;
   }
 }
 
