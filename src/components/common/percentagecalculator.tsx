@@ -6,7 +6,7 @@ export interface IPercentageCalculatorProps {
   inputGroupText: string;
   inputValue: string;
 }
-
+// input-group-sm
 const PercentageCalculator: React.SFC<IPercentageCalculatorProps> = (
   props: IPercentageCalculatorProps
 ) => {
@@ -16,7 +16,7 @@ const PercentageCalculator: React.SFC<IPercentageCalculatorProps> = (
         <label className="col-sm-4 col-5 col-md-5 col-lg-4 col-xl-4 col-form-label text-right">
           {props.textboxLabel}
         </label>
-        <div className="input-group input-group-sm col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
+        <div className="input-group  col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
           <input
             type="text"
             className="form-control"

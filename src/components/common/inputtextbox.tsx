@@ -14,6 +14,7 @@ interface IInputTextboxProps {
 //    and make it center across the devices
 // 2. Rename the bootstrap naming from the elements
 // 3. Hide the bigger input group on smaller screen sizes
+// input-group-sm
 const InputTextbox: React.SFC<IInputTextboxProps> = (
   props: IInputTextboxProps
 ) => {
@@ -24,7 +25,7 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
           {props.textboxLabel}
         </label>
 
-        <div className="input-group input-group-sm col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
+        <div className="input-group col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5">
           <div className="input-group-prepend">
             <span
               className="input-group-text text-white bg-dark"
