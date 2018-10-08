@@ -1,6 +1,8 @@
 import * as React from "react";
 import InputTextbox from "./common/inputtextbox";
 import Alert from "./common/alert";
+import RowHeader from "./common/rowheader";
+import FeeTable from "./feetable";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -61,6 +63,8 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           isPercentageTextbox={true}
           inputValue={this.state.percentageOfDeposit}
         />
+        <RowHeader headerText="LEM Fees per Bank :" />
+        <FeeTable />
       </React.Fragment>
     );
   }
@@ -71,6 +75,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     const propertyVal = e.target.value;
     const doesPropertyValueHasDecimals = RegExp("\\d+\\.\\d+");
     doesPropertyValueHasDecimals.test(this.state.propertyValue);
+
     if (doesPropertyValueHasDecimals.test(propertyVal)) {
       this.setState(() => ({
         myDeposit: "",
@@ -79,6 +84,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       }));
       return;
     }
+
     this.setState(() => ({
       propertyValue: propertyVal,
       errorText: ""
