@@ -3,6 +3,8 @@ import InputTextbox from "./common/inputtextbox";
 import Alert from "./common/alert";
 import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
+import { getBankDetails } from "src/services/banklist";
+import FeeTableindollars from "./feetableindollars";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -63,8 +65,17 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           isPercentageTextbox={true}
           inputValue={this.state.percentageOfDeposit}
         />
-        <RowHeader headerText="LEM Fees per Bank :" />
-        <FeeTable />
+        <RowHeader headerText="% of LEM Fees per Bank :" />
+        <FeeTable bankdetails={getBankDetails()} />
+        <RowHeader headerText="LEM Fees per Bank in $$ :" />
+        <FeeTableindollars
+          bankdetails={getBankDetails()}
+          myDeposit={this.state.myDeposit}
+          propertyPrice={this.state.propertyValue}
+          amountToCalculateLem={
+            parseInt(this.state.propertyValue) - parseInt(this.state.myDeposit)
+          }
+        />
       </React.Fragment>
     );
   }

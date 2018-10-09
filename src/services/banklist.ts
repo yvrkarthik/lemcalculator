@@ -51,29 +51,29 @@ const t1: IBankData = {
         loanBetween85to90: 0.75,
         loanBetween80to85: 0.25
       }
+    },
+    {
+      name: "Westpac",
+      bankWebsite: "https://www.westpac.co.nz",
+      bankLvrLink: "https://www.westpac.co.nz",
+      fee: {
+        loanOver95: 1.15,
+        loanBetween90To95: 1.0,
+        loanBetween85to90: 0.75,
+        loanBetween80to85: 0.35
+      }
+    },
+    {
+      name: "Kiwibank",
+      bankWebsite: "https://www.westpac.co.nz",
+      bankLvrLink: "https://www.westpac.co.nz",
+      fee: {
+        loanOver95: 1.15,
+        loanBetween90To95: 1.0,
+        loanBetween85to90: 0.75,
+        loanBetween80to85: 0.35
+      }
     }
-    // {
-    //   name: "Westpac",
-    //   bankWebsite: "https://www.westpac.co.nz",
-    //   bankLvrLink: "https://www.westpac.co.nz",
-    //   fee: {
-    //     loanOver95: 1.15,
-    //     loanBetween90To95: 1.0,
-    //     loanBetween85to90: 0.75,
-    //     loanBetween80to85: 0.35
-    //   }
-    // },
-    // {
-    //   name: "Kiwibank",
-    //   bankWebsite: "https://www.westpac.co.nz",
-    //   bankLvrLink: "https://www.westpac.co.nz",
-    //   fee: {
-    //     loanOver95: 1.15,
-    //     loanBetween90To95: 1.0,
-    //     loanBetween85to90: 0.75,
-    //     loanBetween80to85: 0.35
-    //   }
-    // }
   ]
 };
 function getBanks() {

@@ -7,11 +7,14 @@ interface IFeeProps {
   // loanBetween80to85: number;
   // bank: string;
   bankdetails: IBankData;
+  myDeposit: string;
+  propertyPrice: string;
+  amountToCalculateLem: number;
 }
 
-const FeeTable: React.SFC<IFeeProps> = (props: IFeeProps) => {
-  console.log(props.bankdetails.bankData);
-
+const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
+  //   console.log(props.bankdetails.bankData);
+  //   console.log(props.myDeposit);
   return (
     <div className="container">
       <div className="row">
@@ -31,25 +34,45 @@ const FeeTable: React.SFC<IFeeProps> = (props: IFeeProps) => {
               <tr key={`percentage_95`} id="percentage_95">
                 <th scope="row">>&nbsp;95.01%</th>
                 {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>{elem.fee.loanOver95}%</td>
+                  <td key={index}>
+                    {calculatePercentage(
+                      props.amountToCalculateLem,
+                      elem.fee.loanOver95
+                    ).toString()}
+                  </td>
                 ))}
               </tr>
               <tr key={`percentage_90`}>
                 <th scope="row">90.01%&nbsp;-&nbsp;95%</th>
                 {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>{elem.fee.loanBetween90To95}%</td>
+                  <td key={index}>
+                    {calculatePercentage(
+                      props.amountToCalculateLem,
+                      elem.fee.loanBetween90To95
+                    ).toString()}
+                  </td>
                 ))}
               </tr>
               <tr key={`percentage_85`}>
                 <th scope="row">85.01%&nbsp;-&nbsp;90%</th>
                 {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>{elem.fee.loanBetween85to90}%</td>
+                  <td key={index}>
+                    {calculatePercentage(
+                      props.amountToCalculateLem,
+                      elem.fee.loanBetween85to90
+                    ).toString()}
+                  </td>
                 ))}
               </tr>
               <tr key={`percentage_80`}>
                 <th scope="row">80.01%&nbsp;-&nbsp;85%</th>
                 {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>{elem.fee.loanBetween80to85}%</td>
+                  <td key={index}>
+                    {calculatePercentage(
+                      props.amountToCalculateLem,
+                      elem.fee.loanBetween80to85
+                    ).toString()}
+                  </td>
                 ))}
               </tr>
             </tbody>
@@ -59,9 +82,12 @@ const FeeTable: React.SFC<IFeeProps> = (props: IFeeProps) => {
     </div>
   );
 };
+function calculatePercentage(number1: number, number2: number): number {
+  return (number1 / 100) * number2;
+}
 // function compareNumber(numberArray: number[]): number {
 //   // console.log(numberArray);
 //   // console.log(Math.max(...numberArray));
 //   return Math.max(...numberArray);
 // }
-export default FeeTable;
+export default FeeTableindollars;
