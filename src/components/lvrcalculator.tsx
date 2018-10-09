@@ -25,6 +25,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     };
     this.handleMyDeposit = this.handleMyDeposit.bind(this);
     this.handlePropertyPrice = this.handlePropertyPrice.bind(this);
+    // this.displayFeeTableInDollars = this.displayFeeTableInDollars.bind(this);
   }
 
   render() {
@@ -67,7 +68,10 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         />
         <RowHeader headerText="% of LEM Fees per Bank :" />
         <FeeTable bankdetails={getBankDetails()} />
-        {this.state.propertyValue !== "" && this.state.myDeposit !== "" ? (
+
+        {this.state.propertyValue !== "" &&
+        this.state.myDeposit !== "" &&
+        this.state.percentageOfDeposit >= "5" ? (
           <React.Fragment>
             <RowHeader headerText="LEM Fees per Bank in $$ :" />
             <FeeTableindollars
@@ -151,6 +155,24 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }
   }
 
+  // private displayFeeTableInDollars() {
+  //   if (this.state.propertyValue !== "" && this.state.myDeposit !== "") {
+  //     return (
+  //       <React.Fragment>
+  //         <RowHeader headerText="LEM Fees per Bank in $$ :" />
+  //         <FeeTableindollars
+  //           bankdetails={getBankDetails()}
+  //           myDeposit={this.state.myDeposit}
+  //           propertyPrice={this.state.propertyValue}
+  //           amountToCalculateLem={
+  //             parseInt(this.state.propertyValue) -
+  //             parseInt(this.state.myDeposit)
+  //           }
+  //         />
+  //       </React.Fragment>
+  //     );
+  //   }
+  // }
   // calculate the percentage and display the result with 2 decimals only
   private calculatePercentage(deposit: number, propertyPrice: number): string {
     const percentage = ((deposit / propertyPrice) * 100).toPrecision(2);
