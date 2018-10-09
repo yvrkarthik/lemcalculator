@@ -113,7 +113,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }));
   }
 
-  // BUG: Return if the deposit is more than property price
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
     // test if the property value has decimals
@@ -147,34 +146,25 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         myDepositValue,
         parseInt(this.state.propertyValue)
       );
-      this.setState(() => ({
-        myDeposit: myDepositValue,
-        percentageOfDeposit: percentageOfDeposit.toString(),
-        errorText: ""
-      }));
+      if (percentageOfDeposit === "") {
+        this.setState(() => ({
+          errorText: "Deposit cannot be morethan property price."
+        }));
+      } else {
+        this.setState(() => ({
+          myDeposit: myDepositValue,
+          percentageOfDeposit: percentageOfDeposit.toString(),
+          errorText: ""
+        }));
+      }
     }
   }
 
-  // private displayFeeTableInDollars() {
-  //   if (this.state.propertyValue !== "" && this.state.myDeposit !== "") {
-  //     return (
-  //       <React.Fragment>
-  //         <RowHeader headerText="LEM Fees per Bank in $$ :" />
-  //         <FeeTableindollars
-  //           bankdetails={getBankDetails()}
-  //           myDeposit={this.state.myDeposit}
-  //           propertyPrice={this.state.propertyValue}
-  //           amountToCalculateLem={
-  //             parseInt(this.state.propertyValue) -
-  //             parseInt(this.state.myDeposit)
-  //           }
-  //         />
-  //       </React.Fragment>
-  //     );
-  //   }
-  // }
   // calculate the percentage and display the result with 2 decimals only
   private calculatePercentage(deposit: number, propertyPrice: number): string {
+    if (deposit > propertyPrice) {
+      return "";
+    }
     const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
     return percentage;
   }
