@@ -67,15 +67,22 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         />
         <RowHeader headerText="% of LEM Fees per Bank :" />
         <FeeTable bankdetails={getBankDetails()} />
-        <RowHeader headerText="LEM Fees per Bank in $$ :" />
-        <FeeTableindollars
-          bankdetails={getBankDetails()}
-          myDeposit={this.state.myDeposit}
-          propertyPrice={this.state.propertyValue}
-          amountToCalculateLem={
-            parseInt(this.state.propertyValue) - parseInt(this.state.myDeposit)
-          }
-        />
+        {this.state.propertyValue !== "" && this.state.myDeposit !== "" ? (
+          <React.Fragment>
+            <RowHeader headerText="LEM Fees per Bank in $$ :" />
+            <FeeTableindollars
+              bankdetails={getBankDetails()}
+              myDeposit={this.state.myDeposit}
+              propertyPrice={this.state.propertyValue}
+              amountToCalculateLem={
+                parseInt(this.state.propertyValue) -
+                parseInt(this.state.myDeposit)
+              }
+            />
+          </React.Fragment>
+        ) : (
+          ""
+        )}
       </React.Fragment>
     );
   }
@@ -102,6 +109,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }));
   }
 
+  // BUG: Return if the deposit is more than property price
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
     // test if the property value has decimals

@@ -10,7 +10,7 @@ interface IFeeProps {
 }
 
 const FeeTable: React.SFC<IFeeProps> = (props: IFeeProps) => {
-  console.log(props.bankdetails.bankData);
+  // console.log(props.bankdetails.bankData);
 
   return (
     <div className="container">
