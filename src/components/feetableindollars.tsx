@@ -13,8 +13,6 @@ interface IFeeProps {
 }
 
 const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
-  //   console.log(props.bankdetails.bankData);
-  //   console.log(props.myDeposit);
   return (
     <div className="container">
       <div className="row">
@@ -36,11 +34,15 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 {props.depositPercentage <= 5 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanOver95
-                      ).toString()}
+                      )
+                        .toLocaleString("en-NZ", {
+                          style: "currency",
+                          currency: "NZD"
+                        })
+                        .toString()}
                     </td>
                   ))
                 ) : (
@@ -54,11 +56,15 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 10 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween90To95
-                      ).toString()}
+                      )
+                        .toLocaleString("en-NZ", {
+                          style: "currency",
+                          currency: "NZD"
+                        })
+                        .toString()}
                     </td>
                   ))
                 ) : (
@@ -72,11 +78,15 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 15 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween85to90
-                      ).toString()}
+                      )
+                        .toLocaleString("en-NZ", {
+                          style: "currency",
+                          currency: "NZD"
+                        })
+                        .toString()}
                     </td>
                   ))
                 ) : (
@@ -89,11 +99,15 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 20 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween80to85
-                      ).toString()}
+                      )
+                        .toLocaleString("en-NZ", {
+                          style: "currency",
+                          currency: "NZD"
+                        })
+                        .toString()}
                     </td>
                   ))
                 ) : (
