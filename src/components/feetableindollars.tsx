@@ -36,6 +36,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 {props.depositPercentage <= 5 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
+                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanOver95
@@ -53,6 +54,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 10 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
+                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween90To95
@@ -70,6 +72,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 15 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
+                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween85to90
@@ -86,6 +89,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 20 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
+                      $
                       {calculatePercentage(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween80to85
