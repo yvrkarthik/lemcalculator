@@ -5,12 +5,16 @@ import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
 import { getBankDetails } from "src/services/banklist";
 import FeeTableindollars from "./feetableindollars";
+import SaySomething from "./common/saysomething";
+import Percentage from "./common/progressbar";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
   propertyValue: string;
   myDeposit: string;
   errorText: string;
+  requiredDeposit: string;
+  fillerPercentage: string;
 }
 
 class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
@@ -21,11 +25,12 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       percentageOfDeposit: "",
       propertyValue: "",
       myDeposit: "",
-      errorText: ""
+      errorText: "",
+      requiredDeposit: "",
+      fillerPercentage: ""
     };
     this.handleMyDeposit = this.handleMyDeposit.bind(this);
     this.handlePropertyPrice = this.handlePropertyPrice.bind(this);
-    // this.displayFeeTableInDollars = this.displayFeeTableInDollars.bind(this);
   }
 
   render() {
@@ -47,6 +52,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           handleOnChange={this.handlePropertyPrice}
           inputValue={this.state.propertyValue.toString()}
         />
+
         <InputTextbox
           textboxIdentifier={"myDepositTextBox"}
           isReadOnly={false}
@@ -58,6 +64,18 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           inputValue={this.state.myDeposit.toString()}
         />
         <InputTextbox
+          textboxIdentifier={"requiredDeposit"}
+          isReadOnly={true}
+          textboxLabel="Required Deposit&nbsp;:"
+          placeHolder="50,000"
+          inputGroupText={"$"}
+          isPercentageTextbox={false}
+          // handleOnChange={this.handleRequiredDeposit}
+          inputValue={this.state.requiredDeposit}
+        />
+        <Percentage fillerPercentage={this.state.fillerPercentage} />
+
+        <InputTextbox
           textboxIdentifier={"myDepositPercentageTextBox"}
           isReadOnly={true}
           textboxLabel="% of Deposit&nbsp;:"
@@ -66,25 +84,32 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           isPercentageTextbox={true}
           inputValue={this.state.percentageOfDeposit}
         />
-        <RowHeader headerText="% of LEM Fees per Bank :" />
-        <FeeTable bankdetails={getBankDetails()} />
-
-        {this.state.propertyValue !== "" &&
-        this.state.myDeposit !== "" &&
-        parseInt(this.state.percentageOfDeposit) >= 5 ? (
-          <React.Fragment>
-            <RowHeader headerText="LEM Fees per Bank in $$ :" />
-            <FeeTableindollars
-              bankdetails={getBankDetails()}
-              amountToCalculateLem={
-                parseInt(this.state.propertyValue) -
-                parseInt(this.state.myDeposit)
-              }
-              depositPercentage={parseInt(this.state.percentageOfDeposit)}
-            />
-          </React.Fragment>
+        {/* Hide the calculator if the % of deposit equal to or more than 20% */}
+        {parseInt(this.state.percentageOfDeposit) >= 20 ? (
+          <SaySomething />
         ) : (
-          ""
+          <React.Fragment>
+            <RowHeader headerText="% of LEM Fees per Bank :" />
+            <FeeTable bankdetails={getBankDetails()} />
+            {this.state.propertyValue !== "" &&
+            this.state.myDeposit !== "" &&
+            parseInt(this.state.percentageOfDeposit) >= 5 &&
+            parseInt(this.state.percentageOfDeposit) < 20 ? (
+              <React.Fragment>
+                <RowHeader headerText="LEM Fees per Bank in $$ :" />
+                <FeeTableindollars
+                  bankdetails={getBankDetails()}
+                  amountToCalculateLem={
+                    parseInt(this.state.propertyValue) -
+                    parseInt(this.state.myDeposit)
+                  }
+                  depositPercentage={parseInt(this.state.percentageOfDeposit)}
+                />
+              </React.Fragment>
+            ) : (
+              ""
+            )}
+          </React.Fragment>
         )}
       </React.Fragment>
     );
@@ -105,11 +130,15 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       }));
       return;
     }
+    if (propertyVal !== "") {
+      const requiredDepositValue = 0.2 * parseInt(propertyVal);
 
-    this.setState(() => ({
-      propertyValue: propertyVal,
-      errorText: ""
-    }));
+      this.setState(() => ({
+        propertyValue: propertyVal,
+        errorText: "",
+        requiredDeposit: requiredDepositValue.toString()
+      }));
+    }
   }
 
   private handleMyDeposit(e: any) {
@@ -145,6 +174,10 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         myDepositValue,
         parseInt(this.state.propertyValue)
       );
+      const depositProgress = (
+        (parseInt(myDepositValue) / parseInt(this.state.requiredDeposit)) *
+        100
+      ).toString();
       if (percentageOfDeposit === "") {
         this.setState(() => ({
           errorText: "Deposit cannot be morethan property price."
@@ -153,7 +186,8 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         this.setState(() => ({
           myDeposit: myDepositValue,
           percentageOfDeposit: percentageOfDeposit.toString(),
-          errorText: ""
+          errorText: "",
+          fillerPercentage: depositProgress
         }));
       }
     }
