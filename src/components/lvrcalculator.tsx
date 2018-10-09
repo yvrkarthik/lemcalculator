@@ -76,12 +76,11 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
             <RowHeader headerText="LEM Fees per Bank in $$ :" />
             <FeeTableindollars
               bankdetails={getBankDetails()}
-              myDeposit={this.state.myDeposit}
-              propertyPrice={this.state.propertyValue}
               amountToCalculateLem={
                 parseInt(this.state.propertyValue) -
                 parseInt(this.state.myDeposit)
               }
+              depositPercentage={parseInt(this.state.percentageOfDeposit)}
             />
           </React.Fragment>
         ) : (

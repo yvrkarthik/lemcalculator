@@ -7,9 +7,9 @@ interface IFeeProps {
   // loanBetween80to85: number;
   // bank: string;
   bankdetails: IBankData;
-  myDeposit: string;
-  propertyPrice: string;
+
   amountToCalculateLem: number;
+  depositPercentage: number;
 }
 
 const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
@@ -32,48 +32,69 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
             </thead>
             <tbody>
               <tr key={`percentage_95`} id="percentage_95">
-                <th scope="row">>&nbsp;95.01%</th>
-                {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>
-                    {calculatePercentage(
-                      props.amountToCalculateLem,
-                      elem.fee.loanOver95
-                    ).toString()}
-                  </td>
-                ))}
+                <th scope="row">>&nbsp;95%</th>
+                {props.depositPercentage <= 5 ? (
+                  props.bankdetails.bankData.map((elem, index) => (
+                    <td key={index}>
+                      {calculatePercentage(
+                        props.amountToCalculateLem,
+                        elem.fee.loanOver95
+                      ).toString()}
+                    </td>
+                  ))
+                ) : (
+                  <React.Fragment />
+                )}
               </tr>
+
               <tr key={`percentage_90`}>
                 <th scope="row">90.01%&nbsp;-&nbsp;95%</th>
-                {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>
-                    {calculatePercentage(
-                      props.amountToCalculateLem,
-                      elem.fee.loanBetween90To95
-                    ).toString()}
-                  </td>
-                ))}
+                {props.depositPercentage > 5.1 &&
+                props.depositPercentage < 10 ? (
+                  props.bankdetails.bankData.map((elem, index) => (
+                    <td key={index}>
+                      {calculatePercentage(
+                        props.amountToCalculateLem,
+                        elem.fee.loanBetween90To95
+                      ).toString()}
+                    </td>
+                  ))
+                ) : (
+                  <React.Fragment />
+                )}
               </tr>
+
               <tr key={`percentage_85`}>
                 <th scope="row">85.01%&nbsp;-&nbsp;90%</th>
-                {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>
-                    {calculatePercentage(
-                      props.amountToCalculateLem,
-                      elem.fee.loanBetween85to90
-                    ).toString()}
-                  </td>
-                ))}
+                {props.depositPercentage >= 10 &&
+                props.depositPercentage < 15 ? (
+                  props.bankdetails.bankData.map((elem, index) => (
+                    <td key={index}>
+                      {calculatePercentage(
+                        props.amountToCalculateLem,
+                        elem.fee.loanBetween85to90
+                      ).toString()}
+                    </td>
+                  ))
+                ) : (
+                  <React.Fragment />
+                )}
               </tr>
               <tr key={`percentage_80`}>
                 <th scope="row">80.01%&nbsp;-&nbsp;85%</th>
-                {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>
-                    {calculatePercentage(
-                      props.amountToCalculateLem,
-                      elem.fee.loanBetween80to85
-                    ).toString()}
-                  </td>
-                ))}
+                {props.depositPercentage >= 15 &&
+                props.depositPercentage < 20 ? (
+                  props.bankdetails.bankData.map((elem, index) => (
+                    <td key={index}>
+                      {calculatePercentage(
+                        props.amountToCalculateLem,
+                        elem.fee.loanBetween80to85
+                      ).toString()}
+                    </td>
+                  ))
+                ) : (
+                  <React.Fragment />
+                )}
               </tr>
             </tbody>
           </table>
