@@ -71,7 +71,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
         {this.state.propertyValue !== "" &&
         this.state.myDeposit !== "" &&
-        this.state.percentageOfDeposit >= "5" ? (
+        parseInt(this.state.percentageOfDeposit) >= 5 ? (
           <React.Fragment>
             <RowHeader headerText="LEM Fees per Bank in $$ :" />
             <FeeTableindollars
