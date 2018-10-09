@@ -34,7 +34,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 {props.depositPercentage <= 5 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculatePercentage(
+                      {calculateLEMFees(
                         props.amountToCalculateLem,
                         elem.fee.loanOver95
                       )
@@ -56,7 +56,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 10 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculatePercentage(
+                      {calculateLEMFees(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween90To95
                       )
@@ -78,7 +78,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 15 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculatePercentage(
+                      {calculateLEMFees(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween85to90
                       )
@@ -99,7 +99,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 props.depositPercentage < 20 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculatePercentage(
+                      {calculateLEMFees(
                         props.amountToCalculateLem,
                         elem.fee.loanBetween80to85
                       )
@@ -121,7 +121,7 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
     </div>
   );
 };
-function calculatePercentage(number1: number, number2: number): number {
+function calculateLEMFees(number1: number, number2: number): number {
   return (number1 / 100) * number2;
 }
 // function compareNumber(numberArray: number[]): number {
