@@ -149,7 +149,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       );
       this.setState(() => ({
         myDeposit: myDepositValue,
-        percentageOfDeposit: percentageOfDeposit,
+        percentageOfDeposit: percentageOfDeposit.toString(),
         errorText: ""
       }));
     }
@@ -175,7 +175,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
   // }
   // calculate the percentage and display the result with 2 decimals only
   private calculatePercentage(deposit: number, propertyPrice: number): string {
-    const percentage = ((deposit / propertyPrice) * 100).toPrecision(2);
+    const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
     return percentage;
   }
 }
