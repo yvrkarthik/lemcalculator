@@ -17,7 +17,7 @@
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build"
 	},
-	"homepage": "https://yvrkarthik.github.io/lemcalculator",
+	"homepage": "https://www.lemcalculator.app/",
 	"devDependencies": {
 		"@types/jest": "^23.3.3",
 		"@types/node": "^10.11.4",
