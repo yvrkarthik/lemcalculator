@@ -5,7 +5,7 @@ export interface IPercentageProps {
 }
 
 const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
-  console.log(props.fillerPercentage);
+  // console.log(props.fillerPercentage);
   return (
     <div className="container">
       <div className="form-group row">

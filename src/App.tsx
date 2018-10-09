@@ -12,9 +12,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar title="Low Equity Margin (LEM Calculator)" />
-        <div className="container-fluid App-add-padding" />
-        <ILvrCalculator />
+        <main role="main" className="container App-add-padding">
+          <ILvrCalculator />
+        </main>
         <Footer />
+        <div className="container-fluid App-add-padding" />
       </div>
     );
   }

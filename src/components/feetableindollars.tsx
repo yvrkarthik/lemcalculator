@@ -14,7 +14,7 @@ interface IFeeProps {
 
 const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
   return (
-    <div className="container">
+    <div className="container pb-3">
       <div className="row">
         <div className="offset-md-2 col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 table-responsive">
           <table className="table table-bordered table-sm" id="feetable">
@@ -34,15 +34,17 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 {props.depositPercentage <= 5 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculateLEMFees(
-                        props.amountToCalculateLem,
-                        elem.fee.loanOver95
-                      )
-                        .toLocaleString("en-NZ", {
-                          style: "currency",
-                          currency: "NZD"
-                        })
-                        .toString()}
+                      {elem.fee.loanOver95 === 0
+                        ? "NA"
+                        : calculateLEMFees(
+                            props.amountToCalculateLem,
+                            elem.fee.loanOver95
+                          )
+                            .toLocaleString("en-NZ", {
+                              style: "currency",
+                              currency: "NZD"
+                            })
+                            .toString()}
                     </td>
                   ))
                 ) : (
