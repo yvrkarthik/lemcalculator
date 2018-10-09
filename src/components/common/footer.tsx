@@ -7,7 +7,7 @@ const Footer: React.SFC<{}> = ({}) => {
     <footer className="footer">
       <div className="container">
         <div className="row">
-          <div className="col-sm">
+          <div className="col-sm-12 col-12">
             <a href="https://www.linkedin.com/in/rajivkarthikyanamandra">
               &copy;&nbsp;Rajiv Karthik Yanamandra&nbsp; 2018
             </a>
