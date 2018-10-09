@@ -51,7 +51,7 @@ const t1: IBankData = {
         loanBetween85to90: 0.75,
         loanBetween80to85: 0.25
       }
-    // },
+    },
     // {
     //   name: "Westpac",
     //   bankWebsite: "https://www.westpac.co.nz",
