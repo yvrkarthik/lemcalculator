@@ -5,6 +5,7 @@ import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
 import { getBankDetails } from "src/services/banklist";
 import FeeTableindollars from "./feetableindollars";
+import SaySomething from "./common/saysomething";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -25,7 +26,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     };
     this.handleMyDeposit = this.handleMyDeposit.bind(this);
     this.handlePropertyPrice = this.handlePropertyPrice.bind(this);
-    // this.displayFeeTableInDollars = this.displayFeeTableInDollars.bind(this);
   }
 
   render() {
@@ -66,25 +66,33 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           isPercentageTextbox={true}
           inputValue={this.state.percentageOfDeposit}
         />
-        <RowHeader headerText="% of LEM Fees per Bank :" />
-        <FeeTable bankdetails={getBankDetails()} />
-
-        {this.state.propertyValue !== "" &&
-        this.state.myDeposit !== "" &&
-        parseInt(this.state.percentageOfDeposit) >= 5 ? (
-          <React.Fragment>
-            <RowHeader headerText="LEM Fees per Bank in $$ :" />
-            <FeeTableindollars
-              bankdetails={getBankDetails()}
-              amountToCalculateLem={
-                parseInt(this.state.propertyValue) -
-                parseInt(this.state.myDeposit)
-              }
-              depositPercentage={parseInt(this.state.percentageOfDeposit)}
-            />
-          </React.Fragment>
+        {/* Hide the calculator if the % of deposit equal to or more than 20% */}
+        {parseInt(this.state.percentageOfDeposit) >= 20 ? (
+          <SaySomething />
         ) : (
-          ""
+            <React.Fragment>
+              
+            <RowHeader headerText="% of LEM Fees per Bank :" />
+            <FeeTable bankdetails={getBankDetails()} />
+            {this.state.propertyValue !== "" &&
+            this.state.myDeposit !== "" &&
+            parseInt(this.state.percentageOfDeposit) >= 5 &&
+            parseInt(this.state.percentageOfDeposit) < 20 ? (
+              <React.Fragment>
+                <RowHeader headerText="LEM Fees per Bank in $$ :" />
+                <FeeTableindollars
+                  bankdetails={getBankDetails()}
+                  amountToCalculateLem={
+                    parseInt(this.state.propertyValue) -
+                    parseInt(this.state.myDeposit)
+                  }
+                  depositPercentage={parseInt(this.state.percentageOfDeposit)}
+                />
+              </React.Fragment>
+            ) : (
+              ""
+            )}
+          </React.Fragment>
         )}
       </React.Fragment>
     );
