@@ -15,6 +15,7 @@
 		"eject": "react-scripts-ts eject",
 		"copyfiles": "cpx \"build/**/*.*\" docs/\""
 	},
+	"homepage": "https://yvrkarthik.github.io/lemcalculator/",
 	"devDependencies": {
 		"@types/jest": "^23.3.3",
 		"@types/node": "^10.11.4",
