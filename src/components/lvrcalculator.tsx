@@ -66,7 +66,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         <InputTextbox
           textboxIdentifier={"requiredDeposit"}
           isReadOnly={true}
-          textboxLabel="Required Deposit&nbsp;:"
+          textboxLabel="Required Deposit&nbsp;(20%):"
           placeHolder="50,000"
           inputGroupText={"$"}
           isPercentageTextbox={false}
