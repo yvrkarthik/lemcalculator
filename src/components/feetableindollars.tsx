@@ -34,15 +34,17 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
                 {props.depositPercentage <= 5 ? (
                   props.bankdetails.bankData.map((elem, index) => (
                     <td key={index}>
-                      {calculateLEMFees(
-                        props.amountToCalculateLem,
-                        elem.fee.loanOver95
-                      )
-                        .toLocaleString("en-NZ", {
-                          style: "currency",
-                          currency: "NZD"
-                        })
-                        .toString()}
+                      {elem.fee.loanOver95 === 0
+                        ? "NA"
+                        : calculateLEMFees(
+                            props.amountToCalculateLem,
+                            elem.fee.loanOver95
+                          )
+                            .toLocaleString("en-NZ", {
+                              style: "currency",
+                              currency: "NZD"
+                            })
+                            .toString()}
                     </td>
                   ))
                 ) : (

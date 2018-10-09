@@ -30,8 +30,13 @@ const FeeTable: React.SFC<IFeeProps> = (props: IFeeProps) => {
             <tbody>
               <tr key={`percentage_95`} id="percentage_95">
                 <th scope="row">>&nbsp;95.01%</th>
+
                 {props.bankdetails.bankData.map((elem, index) => (
-                  <td key={index}>{elem.fee.loanOver95}%</td>
+                  <td key={index}>
+                    {elem.fee.loanOver95 === 0
+                      ? "NA"
+                      : elem.fee.loanOver95 + "%"}
+                  </td>
                 ))}
               </tr>
               <tr key={`percentage_90`}>
