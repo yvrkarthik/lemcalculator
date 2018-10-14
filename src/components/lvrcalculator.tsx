@@ -132,7 +132,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     }
     if (propertyVal !== "") {
       const requiredDepositValue = 0.2 * parseInt(propertyVal);
-
       this.setState(() => ({
         propertyValue: propertyVal,
         errorText: "",
@@ -155,7 +154,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     */
     if (
       this.state.propertyValue === "" ||
-      this.state.propertyValue.length <= 4 ||
+      this.state.propertyValue.length < 4 ||
       doesPropertyValueHasDecimals.test(this.state.propertyValue)
     ) {
       this.setState(() => ({

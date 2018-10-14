@@ -34,7 +34,7 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
               value={props.inputValue.toString()}
             />
             <div className="input-group-append">
-              <span className="input-group-text text-white bg-dark">
+              <span className="input-group-text text-white bg-dark"> 
                 {props.inputGroupText}
               </span>
             </div>
