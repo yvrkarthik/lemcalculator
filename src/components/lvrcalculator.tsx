@@ -67,7 +67,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           textboxIdentifier={"requiredDeposit"}
           isReadOnly={true}
           textboxLabel="Required Deposit&nbsp;(20%):"
-          placeHolder="50,000"
+          placeHolder="0"
           inputGroupText={"$"}
           isPercentageTextbox={false}
           // handleOnChange={this.handleRequiredDeposit}
@@ -130,7 +130,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       }));
       return;
     }
-    if (propertyVal !== "") {
+    if (propertyVal !== 0) {
       const requiredDepositValue = 0.2 * parseInt(propertyVal);
       this.setState(() => ({
         propertyValue: propertyVal,
