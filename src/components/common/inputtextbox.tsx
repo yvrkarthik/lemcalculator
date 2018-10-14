@@ -8,6 +8,7 @@ interface IInputTextboxProps {
   isPercentageTextbox: boolean;
   inputValue: string;
   handleOnChange?: any;
+  pattern?: string;
 }
 // TODO:
 // 1. Rename the bootstrap naming from the elements
