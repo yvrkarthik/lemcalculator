@@ -178,7 +178,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       ).toString();
       if (percentageOfDeposit === "") {
         this.setState(() => ({
-          errorText: "Deposit cannot be morethan property price."
+          errorText: "Deposit cannot be more than property price."
         }));
       } else {
         this.setState(() => ({
