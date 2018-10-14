@@ -154,14 +154,13 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     */
     if (
       this.state.propertyValue === "" ||
-      this.state.propertyValue.length < 4 ||
-      doesPropertyValueHasDecimals.test(this.state.propertyValue)
+      this.state.propertyValue.length < 4
+      // || doesPropertyValueHasDecimals.test(this.state.propertyValue)
     ) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
-        errorText:
-          "Property price cannot have decimals and it should be at-least 4 digits"
+        errorText: "Property price should be at-least 4 digits"
       }));
 
       return;
