@@ -51,6 +51,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
           isPercentageTextbox={false}
           handleOnChange={this.handlePropertyPrice}
           inputValue={this.state.propertyValue.toString()}
+          pattern={"[0-9*]"}
         />
 
         <InputTextbox
@@ -119,48 +120,48 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
   // Format the number as currency
   private handlePropertyPrice(e: any) {
     const propertyVal = e.target.value;
+
     const doesPropertyValueHasDecimals = RegExp("\\d+\\.\\d+");
-    doesPropertyValueHasDecimals.test(this.state.propertyValue);
+    // doesPropertyValueHasDecimals.test(this.state.propertyValue);
 
     if (doesPropertyValueHasDecimals.test(propertyVal)) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
-        errorText: "Property price cannot have decimals."
+        errorText:
+          "The Property price must be a number and must not be more than 10 digits",
+        fillerPercentage: ""
       }));
       return;
-    }
-    if (propertyVal !== 0) {
+    } else if (propertyVal !== 0) {
       const requiredDepositValue = 0.2 * parseInt(propertyVal);
+      // clear-up all the fields when the property value is cleared
       this.setState(() => ({
         propertyValue: propertyVal,
         errorText: "",
-        requiredDeposit: requiredDepositValue.toString()
+        requiredDeposit: requiredDepositValue.toString(),
+        myDeposit: "",
+        percentageOfDeposit: ""
       }));
     }
   }
 
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
-    // test if the property value has decimals
-    const doesPropertyValueHasDecimals = RegExp("\\d+\\.\\d+");
-    doesPropertyValueHasDecimals.test(this.state.propertyValue);
-    // console.log(testRegex.test(this.state.propertyValue));
     /*
     Return error :
     if the propertyValue is empty
     if the propertyValue characters are less than 4
-    if the propertyValue has decimals in it
     */
     if (
       this.state.propertyValue === "" ||
       this.state.propertyValue.length < 4
-      // || doesPropertyValueHasDecimals.test(this.state.propertyValue)
     ) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
-        errorText: "Property price should be at-least 4 digits"
+        errorText: "Loan amount must be minimum of 4 digits",
+        fillerPercentage: ""
       }));
 
       return;

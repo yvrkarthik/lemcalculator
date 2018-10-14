@@ -8,6 +8,7 @@ interface IInputTextboxProps {
   isPercentageTextbox: boolean;
   inputValue: string;
   handleOnChange?: any;
+  pattern?: string;
 }
 // TODO:
 // 1. Rename the bootstrap naming from the elements
@@ -34,7 +35,7 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
               value={props.inputValue.toString()}
             />
             <div className="input-group-append">
-              <span className="input-group-text text-white bg-dark"> 
+              <span className="input-group-text text-white bg-dark">
                 {props.inputGroupText}
               </span>
             </div>
