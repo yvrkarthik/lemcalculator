@@ -34,9 +34,10 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
                   }%`
                 }}
               >
-                {isNaN(parseInt(props.fillerPercentage))
+                {isValidInput(parseInt(props.fillerPercentage))}
+                {/* {isNaN(parseInt(props.fillerPercentage))
                   ? ""
-                  : parseInt(props.fillerPercentage).toFixed() + "%"}
+                  : parseInt(props.fillerPercentage).toFixed() + "%"} */}
               </div>
             </div>
           )}
@@ -46,4 +47,13 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
   );
 };
 
+function isValidInput(progressBar: number): string {
+  if (isNaN(progressBar)) {
+    return "";
+  } else if (progressBar > 100) {
+    return "100%";
+  } else {
+    return progressBar.toFixed() + "%";
+  }
+}
 export default Percentage;
