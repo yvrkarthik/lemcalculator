@@ -5,7 +5,7 @@ import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
 import { getBankDetails } from "src/services/banklist";
 import FeeTableindollars from "./feetableindollars";
-import SaySomething from "./common/saysomething";
+import Awesome from "./common/Awesome";
 import Percentage from "./common/progressbar";
 import {
   isItValidInput,
@@ -13,6 +13,7 @@ import {
   calculateProgressPercentage,
   calculateMyDepositWorth
 } from "src/utilities/helpers";
+import { ErrorMessages } from "src/utilities/appconstants";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -93,7 +94,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         />
         {/* Hide the calculator if the % of deposit equal to or more than 20% */}
         {parseInt(this.state.percentageOfDeposit) >= 20 ? (
-          <SaySomething />
+          <Awesome />
         ) : (
           <React.Fragment>
             <RowHeader headerText="% of LEM Fees per Bank :" />
@@ -124,29 +125,30 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
   // Get the value of the property
   // Format the number as currency
-  // TODO: Prevent string being entered into the text box -- done
-  // move the required property % to a new function
   private handlePropertyPrice(e: any) {
     const propertyVal = e.target.value;
-    // input should only be having digits
-    if (!isItValidInput(propertyVal, RegExp("\\d"))) {
+
+    // if the property price has string characters then return
+    if (isItValidInput(propertyVal.toString(), RegExp("[a-z]"))) {
       this.setState(() => ({
-        propertyValue: ""
+        propertyValue: "",
+        requiredDeposit: ""
       }));
       return;
-    }
-
-    if (isItValidInput(propertyVal, RegExp("\\d+\\."))) {
+    } // check if the property value has decimals
+    else if (isItValidInput(propertyVal, RegExp("\\d+\\."))) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
-        errorText:
-          "The Property price must be a number and must not have decimals.",
+        errorText: ErrorMessages.propertyPriceMustNotHaveDecimals,
         fillerPercentage: ""
       }));
       return;
-    } else if (propertyVal !== 0) {
-      // const requiredDepositValue = 0.2 * parseInt(propertyVal);
+    } // start the calculation when the length if more than 0
+    else if (
+      propertyVal.toString().length >= 0 &&
+      propertyVal.toString() !== 0
+    ) {
       const requiredDepositValue = calculateRequiredDepositValue(
         parseInt(propertyVal)
       );
@@ -163,13 +165,8 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
+
     // input should only be having digits
-    if (!isItValidInput(myDepositValue, RegExp("\\d"))) {
-      this.setState(() => ({
-        myDeposit: ""
-      }));
-      return;
-    }
 
     /*
     Return error :
@@ -178,13 +175,14 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     */
     if (
       this.state.propertyValue === "" ||
-      this.state.propertyValue.length < 4
+      this.state.propertyValue.length < 4 ||
+      parseInt(this.state.propertyValue) < 5000
     ) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
-        errorText: "Loan amount must be minimum of 4 digits",
-        fillerPercentage: ""
+        errorText: ErrorMessages.loanAmountMustBeAtleast4Digits,
+        fillerPercentage: "0"
       }));
       return;
     } else {
@@ -202,7 +200,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
       if (percentageOfDeposit === "") {
         this.setState(() => ({
-          errorText: "Deposit cannot be more than property price."
+          errorText: ErrorMessages.depositCannotBeMoreThanPropertyPrice
         }));
       } else {
         this.setState(() => ({

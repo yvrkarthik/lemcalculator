@@ -5,7 +5,6 @@ export interface IPercentageProps {
 }
 
 const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
-  // console.log(props.fillerPercentage);
   return (
     <div className="container">
       <div className="form-group row">
@@ -26,7 +25,14 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
               <div
                 className="progress-bar bg-info col-form-label"
                 role="progressbar"
-                style={{ width: `${props.fillerPercentage}%` }}
+                // style={{ width: `${props.fillerPercentage}%` }}
+                style={{
+                  width: `${
+                    isNaN(parseInt(props.fillerPercentage))
+                      ? "0"
+                      : props.fillerPercentage
+                  }%`
+                }}
               />
             </div>
           )}

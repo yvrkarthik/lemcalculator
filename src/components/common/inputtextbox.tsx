@@ -55,7 +55,6 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
                 type="text"
                 className="form-control"
                 id={`input_${props.textboxLabel.trim()}`}
-                // placeholder={props.placeHolder}
                 readOnly={props.isReadOnly}
                 aria-label={props.textboxLabel}
                 aria-describedby="basic-addon1"
