@@ -7,6 +7,7 @@ import { getBankDetails } from "src/services/banklist";
 import FeeTableindollars from "./feetableindollars";
 import SaySomething from "./common/saysomething";
 import Percentage from "./common/progressbar";
+import { isItValidInput } from "src/utilities/helpers";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -118,11 +119,18 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
   // Get the value of the property
   // Format the number as currency
+  // TODO: Prevent string being entered into the text box -- done
+  // move the required property % to a new function
   private handlePropertyPrice(e: any) {
     const propertyVal = e.target.value;
 
+    if (!isItValidInput(propertyVal, RegExp("\\d"))) {
+      this.setState(() => ({
+        propertyValue: ""
+      }));
+      return;
+    }
     const doesPropertyValueHasDecimals = RegExp("\\d+\\.\\d+");
-    // doesPropertyValueHasDecimals.test(this.state.propertyValue);
 
     if (doesPropertyValueHasDecimals.test(propertyVal)) {
       this.setState(() => ({
