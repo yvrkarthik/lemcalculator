@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const SaySomething: React.SFC<{}> = () => {
+const Awesome: React.SFC<{}> = () => {
   return (
     <div className="container">
       <div className="row">
@@ -19,4 +19,4 @@ const SaySomething: React.SFC<{}> = () => {
   );
 };
 
-export default SaySomething;
+export default Awesome;

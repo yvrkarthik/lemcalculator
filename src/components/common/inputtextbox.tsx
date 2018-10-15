@@ -8,6 +8,7 @@ interface IInputTextboxProps {
   isPercentageTextbox: boolean;
   inputValue: string;
   handleOnChange?: any;
+  pattern?: string;
 }
 // TODO:
 // 1. Rename the bootstrap naming from the elements
@@ -51,16 +52,15 @@ const InputTextbox: React.SFC<IInputTextboxProps> = (
                 </span>
               </div>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id={`input_${props.textboxLabel.trim()}`}
-                placeholder={props.placeHolder}
                 readOnly={props.isReadOnly}
                 aria-label={props.textboxLabel}
                 aria-describedby="basic-addon1"
                 onChange={props.handleOnChange}
                 value={props.inputValue}
-                min="0"
+                maxLength={10}
               />
             </div>
           </div>

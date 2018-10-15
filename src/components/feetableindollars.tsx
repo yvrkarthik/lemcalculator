@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IBankData } from "src/services/banklist";
+import { calculateLEMFees } from "src/utilities/helpers";
 interface IFeeProps {
   // loanOver95: number;
   // loanBetween90To95: number;
@@ -7,7 +8,6 @@ interface IFeeProps {
   // loanBetween80to85: number;
   // bank: string;
   bankdetails: IBankData;
-
   amountToCalculateLem: number;
   depositPercentage: number;
 }
@@ -123,9 +123,9 @@ const FeeTableindollars: React.SFC<IFeeProps> = (props: IFeeProps) => {
     </div>
   );
 };
-function calculateLEMFees(number1: number, number2: number): number {
-  return (number1 / 100) * number2;
-}
+// function calculateLEMFees(number1: number, number2: number): number {
+//   return (number1 / 100) * number2;
+// }
 // function compareNumber(numberArray: number[]): number {
 //   // console.log(numberArray);
 //   // console.log(Math.max(...numberArray));
