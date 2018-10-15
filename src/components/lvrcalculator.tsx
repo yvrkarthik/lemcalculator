@@ -7,7 +7,10 @@ import { getBankDetails } from "src/services/banklist";
 import FeeTableindollars from "./feetableindollars";
 import SaySomething from "./common/saysomething";
 import Percentage from "./common/progressbar";
-import { isItValidInput } from "src/utilities/helpers";
+import {
+  isItValidInput,
+  calculateRequiredDepositValue
+} from "src/utilities/helpers";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -123,26 +126,28 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
   // move the required property % to a new function
   private handlePropertyPrice(e: any) {
     const propertyVal = e.target.value;
-
+    // input should only be having digits
     if (!isItValidInput(propertyVal, RegExp("\\d"))) {
       this.setState(() => ({
         propertyValue: ""
       }));
       return;
     }
-    const doesPropertyValueHasDecimals = RegExp("\\d+\\.\\d+");
 
-    if (doesPropertyValueHasDecimals.test(propertyVal)) {
+    if (isItValidInput(propertyVal, RegExp("\\d+\\."))) {
       this.setState(() => ({
         myDeposit: "",
         percentageOfDeposit: "",
         errorText:
-          "The Property price must be a number and must not be more than 10 digits",
+          "The Property price must be a number and must not have decimals.",
         fillerPercentage: ""
       }));
       return;
     } else if (propertyVal !== 0) {
-      const requiredDepositValue = 0.2 * parseInt(propertyVal);
+      // const requiredDepositValue = 0.2 * parseInt(propertyVal);
+      const requiredDepositValue = calculateRequiredDepositValue(
+        parseInt(propertyVal)
+      );
       // clear-up all the fields when the property value is cleared
       this.setState(() => ({
         propertyValue: propertyVal,
@@ -156,6 +161,14 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
 
   private handleMyDeposit(e: any) {
     const myDepositValue = e.target.value;
+    // input should only be having digits
+    if (!isItValidInput(myDepositValue, RegExp("\\d"))) {
+      this.setState(() => ({
+        myDeposit: ""
+      }));
+      return;
+    }
+
     /*
     Return error :
     if the propertyValue is empty

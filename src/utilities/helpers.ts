@@ -14,4 +14,7 @@ function isItValidInput(
   return regexPatternToTestAgainst.test(valueToBeTested) ? true : false;
 }
 
-export { isItValidInput };
+function calculateRequiredDepositValue(propertyValue: number): number {
+  return 0.2 * propertyValue;
+}
+export { isItValidInput, calculateRequiredDepositValue };
