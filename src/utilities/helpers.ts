@@ -17,4 +17,31 @@ function isItValidInput(
 function calculateRequiredDepositValue(propertyValue: number): number {
   return 0.2 * propertyValue;
 }
-export { isItValidInput, calculateRequiredDepositValue };
+
+function calculateProgressPercentage(
+  depositValue: number,
+  requiredDeposit: number
+): string {
+  if (depositValue === 0 || requiredDeposit === 0) {
+    return "";
+  } else {
+    return ((depositValue / requiredDeposit) * 100).toString();
+  }
+}
+
+function calculateMyDepositWorth(
+  deposit: number,
+  propertyPrice: number
+): string {
+  if (deposit > propertyPrice) {
+    return "";
+  }
+  const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
+  return percentage;
+}
+export {
+  isItValidInput,
+  calculateRequiredDepositValue,
+  calculateProgressPercentage,
+  calculateMyDepositWorth
+};

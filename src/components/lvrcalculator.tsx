@@ -9,7 +9,9 @@ import SaySomething from "./common/saysomething";
 import Percentage from "./common/progressbar";
 import {
   isItValidInput,
-  calculateRequiredDepositValue
+  calculateRequiredDepositValue,
+  calculateProgressPercentage,
+  calculateMyDepositWorth
 } from "src/utilities/helpers";
 
 export interface ILvrCalculatorState {
@@ -184,20 +186,20 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         errorText: "Loan amount must be minimum of 4 digits",
         fillerPercentage: ""
       }));
-
       return;
     } else {
       /*
       Convert the string to Int for calculating the %
       */
-      const percentageOfDeposit = this.calculatePercentage(
+      const percentageOfDeposit = calculateMyDepositWorth(
         myDepositValue,
         parseInt(this.state.propertyValue)
       );
-      const depositProgress = (
-        (parseInt(myDepositValue) / parseInt(this.state.requiredDeposit)) *
-        100
-      ).toString();
+      const depositProgress = calculateProgressPercentage(
+        parseInt(myDepositValue),
+        parseInt(this.state.requiredDeposit)
+      );
+
       if (percentageOfDeposit === "") {
         this.setState(() => ({
           errorText: "Deposit cannot be more than property price."
@@ -211,15 +213,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
         }));
       }
     }
-  }
-
-  // calculate the percentage and display the result with 2 decimals only
-  private calculatePercentage(deposit: number, propertyPrice: number): string {
-    if (deposit > propertyPrice) {
-      return "";
-    }
-    const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
-    return percentage;
   }
 }
 
