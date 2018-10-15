@@ -167,7 +167,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
     const myDepositValue = e.target.value;
 
     // input should only be having digits
-<<<<<<< HEAD
     if (isItValidInput(myDepositValue.toString(), RegExp("[a-z]"))) {
       this.setState(() => ({
         requiredDeposit: ""
@@ -175,10 +174,6 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       return;
     } else if (
       /*
-=======
-
-    /*
->>>>>>> f10b3fefb804408a04bd5b3d0e55988f9f78c4ba
     Return error :
     if the propertyValue is empty
     if the propertyValue characters are less than 4
