@@ -9,7 +9,7 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
     <div className="container">
       <div className="form-group row">
         <label className="col-sm-4 col-5 col-md-4 col-lg-4 col-xl-4 col-form-label text-right">
-          My Deposit vs Required Deposit :
+          My deposit vs Required Deposit :
         </label>
         <div className="col-sm-6 col-6 col-md-6 col-lg-5 col-xl-5 col-form-label pt-2">
           {props.fillerPercentage === "100" ? (
@@ -23,7 +23,7 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
           ) : (
             <div className="progress">
               <div
-                className="progress-bar bg-info col-form-label"
+                className="progress-bar bg-info col-form-label text-center"
                 role="progressbar"
                 // style={{ width: `${props.fillerPercentage}%` }}
                 style={{
@@ -33,7 +33,11 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
                       : props.fillerPercentage
                   }%`
                 }}
-              />
+              >
+                {isNaN(parseInt(props.fillerPercentage))
+                  ? ""
+                  : parseInt(props.fillerPercentage).toFixed() + "%"}
+              </div>
             </div>
           )}
         </div>
