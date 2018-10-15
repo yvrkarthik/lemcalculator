@@ -34,10 +34,15 @@ const Percentage: React.SFC<IPercentageProps> = (props: IPercentageProps) => {
                   }%`
                 }}
               >
+<<<<<<< HEAD
                 {isValidInput(parseInt(props.fillerPercentage))}
                 {/* {isNaN(parseInt(props.fillerPercentage))
                   ? ""
                   : parseInt(props.fillerPercentage).toFixed() + "%"} */}
+=======
+                  ? ""
+                  : parseInt(props.fillerPercentage).toFixed() + "%"}
+>>>>>>> f10b3fefb804408a04bd5b3d0e55988f9f78c4ba
               </div>
             </div>
           )}
