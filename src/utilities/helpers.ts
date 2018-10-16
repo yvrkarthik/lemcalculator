@@ -26,15 +26,14 @@ function isItValidInput(
  *    90000.00
  */
 function calculateRequiredDepositValue(propertyValue: number): string {
-  if (isNaN(propertyValue)) {
+  if (
+    // isNaN(propertyValue) ||
+    isItValidInput(propertyValue.toString(), RegExp("[a-z]")) ||
+    propertyValue < 0
+  ) {
     return "";
-  } else if (isItValidInput(propertyValue.toString(), RegExp("[a-z]"))) {
-    return "";
-  } else if (propertyValue < 0) {
-    return "";
-  } else {
-    return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
   }
+  return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
 }
 
 function calculateProgressPercentage(

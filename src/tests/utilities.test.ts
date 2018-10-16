@@ -11,6 +11,7 @@ test("checks if the regex validation has failed", () => {
   expect(isItValidInput("abc", RegExp("[0-9]*"))).toBeFalsy;
 });
 
+//#region Calculate Required Deposit
 test("calculateRequiredDeposit_ProvideValidNumber_ShouldReturn20%OfTheProvidedNumber", () => {
   expect(calculateRequiredDepositValue(450000)).toEqual("90000.00");
 });
@@ -26,3 +27,6 @@ test("calculateRequiredDeposit_ProvideAString_ShouldReturnEmptyString", () => {
 test("calculateRequiredDeposit_ProvideANegativeNumber_ShouldReturnEmptyString", () => {
   expect(calculateRequiredDepositValue(-450000)).toEqual("");
 });
+//#endregion
+
+
