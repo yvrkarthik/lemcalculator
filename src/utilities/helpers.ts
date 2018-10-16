@@ -25,7 +25,7 @@ function isItValidInput(
  * // returns a string value
  *    90000.00
  */
-function calculateRequiredDepositValue(propertyValue: number): string {
+function calculateRequiredDeposit(propertyValue: number): string {
   if (
     // isNaN(propertyValue) ||
     isItValidInput(propertyValue.toString(), RegExp("[a-z]")) ||
@@ -36,15 +36,29 @@ function calculateRequiredDepositValue(propertyValue: number): string {
   return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
 }
 
+/**
+ * This function calculates the required deposit %
+ * @param depositValue number
+ * @param requiredDeposit number
+ * @returns string
+ * @example
+ * calculateProgressPercentage(90000, 450000)
+ * // returns a string value
+ *    20
+ */
 function calculateProgressPercentage(
   depositValue: number,
   requiredDeposit: number
 ): string {
-  if (depositValue === 0 || requiredDeposit === 0) {
+  if (
+    isNaN(depositValue) ||
+    isNaN(requiredDeposit) ||
+    depositValue === 0 ||
+    requiredDeposit === 0
+  ) {
     return "";
-  } else {
-    return ((depositValue / requiredDeposit) * 100).toString();
   }
+  return ((depositValue / requiredDeposit) * 100).toString();
 }
 
 function calculateMyDepositWorth(
@@ -66,7 +80,7 @@ function calculateLEMFees(number1: number, number2: number): number {
 
 export {
   isItValidInput,
-  calculateRequiredDepositValue,
+  calculateRequiredDeposit,
   calculateProgressPercentage,
   calculateMyDepositWorth,
   calculateLEMFees
