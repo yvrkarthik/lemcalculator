@@ -60,15 +60,24 @@ function calculateProgressPercentage(
   }
   return ((depositValue / requiredDeposit) * 100).toString();
 }
-
+/**
+ * This function calculates the required deposit %
+ * @param depositValue number
+ * @param requiredDeposit number
+ * @returns string
+ * @example
+ * calculateProgressPercentage(90000, 450000)
+ * // returns a string value with 2 decimals
+ *    20.00
+ */
 function calculateMyDepositWorth(
   deposit: number,
   propertyPrice: number
 ): string {
   if (deposit > propertyPrice) {
     return "";
-  } else if (isNaN(deposit)) {
-    return "Not a valid number";
+  } else if (isNaN(deposit) || isNaN(propertyPrice)) {
+    return "";
   }
   const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
   return percentage;
