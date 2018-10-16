@@ -1,6 +1,6 @@
 import * as React from "react";
-import { IBankData } from "src/services/banklist";
-import { calculateLEMFees } from "src/utilities/helpers";
+import { IBankData } from "../services/banklist";
+import { calculateLEMFees } from "../utilities/helpers";
 interface IFeeProps {
   // loanOver95: number;
   // loanBetween90To95: number;

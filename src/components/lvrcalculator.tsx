@@ -3,17 +3,17 @@ import InputTextbox from "./common/inputtextbox";
 import Alert from "./common/alert";
 import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
-import { getBankDetails } from "src/services/banklist";
+import { getBankDetails } from "../services/banklist";
 import FeeTableindollars from "./feetableindollars";
 import Awesome from "./common/Awesome";
 import Percentage from "./common/progressbar";
 import {
   isItValidInput,
-  calculateRequiredDepositValue,
+  calculateRequiredDeposit,
   calculateProgressPercentage,
   calculateMyDepositWorth
-} from "src/utilities/helpers";
-import { ErrorMessages } from "src/utilities/appconstants";
+} from "../utilities/helpers";
+import { ErrorMessages } from "../utilities/appconstants";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -149,7 +149,7 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
       propertyVal.toString().length >= 0 &&
       propertyVal.toString() !== 0
     ) {
-      const requiredDepositValue = calculateRequiredDepositValue(
+      const requiredDepositValue = calculateRequiredDeposit(
         parseInt(propertyVal)
       );
       // clear-up all the fields when the property value is cleared

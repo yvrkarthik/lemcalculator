@@ -16,32 +16,68 @@ function isItValidInput(
   return regexPatternToTestAgainst.test(valueToBeTested) ? true : false;
 }
 
-function calculateRequiredDepositValue(propertyValue: number): string {
-  if (isNaN(propertyValue)) {
+/**
+ * This function calculates the required deposit
+ * @param propertyValue number
+ * @returns string with 2 decimal values
+ * @example
+ * calculateRequiredDepositValue(450000)
+ * // returns a string value
+ *    90000.00
+ */
+function calculateRequiredDeposit(propertyValue: number): string {
+  if (
+    // isNaN(propertyValue) ||
+    isItValidInput(propertyValue.toString(), RegExp("[a-z]")) ||
+    propertyValue < 0
+  ) {
     return "";
   }
   return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
 }
 
+/**
+ * This function calculates the required deposit %
+ * @param depositValue number
+ * @param requiredDeposit number
+ * @returns string
+ * @example
+ * calculateProgressPercentage(90000, 450000)
+ * // returns a string value
+ *    20
+ */
 function calculateProgressPercentage(
   depositValue: number,
   requiredDeposit: number
 ): string {
-  if (depositValue === 0 || requiredDeposit === 0) {
+  if (
+    isNaN(depositValue) ||
+    isNaN(requiredDeposit) ||
+    depositValue === 0 ||
+    requiredDeposit === 0
+  ) {
     return "";
-  } else {
-    return ((depositValue / requiredDeposit) * 100).toString();
   }
+  return ((depositValue / requiredDeposit) * 100).toString();
 }
-
+/**
+ * This function calculates the required deposit %
+ * @param depositValue number
+ * @param requiredDeposit number
+ * @returns string
+ * @example
+ * calculateProgressPercentage(90000, 450000)
+ * // returns a string value with 2 decimals
+ *    20.00
+ */
 function calculateMyDepositWorth(
   deposit: number,
   propertyPrice: number
 ): string {
   if (deposit > propertyPrice) {
     return "";
-  } else if (isNaN(deposit)) {
-    return "Not a valid number";
+  } else if (isNaN(deposit) || isNaN(propertyPrice)) {
+    return "";
   }
   const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
   return percentage;
@@ -53,7 +89,7 @@ function calculateLEMFees(number1: number, number2: number): number {
 
 export {
   isItValidInput,
-  calculateRequiredDepositValue,
+  calculateRequiredDeposit,
   calculateProgressPercentage,
   calculateMyDepositWorth,
   calculateLEMFees
