@@ -16,11 +16,25 @@ function isItValidInput(
   return regexPatternToTestAgainst.test(valueToBeTested) ? true : false;
 }
 
+/**
+ * This function calculates the required deposit
+ * @param propertyValue number
+ * @returns string with 2 decimal values
+ * @example
+ * calculateRequiredDepositValue(450000)
+ * // returns a string value
+ *    90000.00
+ */
 function calculateRequiredDepositValue(propertyValue: number): string {
   if (isNaN(propertyValue)) {
     return "";
+  } else if (isItValidInput(propertyValue.toString(), RegExp("[a-z]"))) {
+    return "";
+  } else if (propertyValue < 0) {
+    return "";
+  } else {
+    return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
   }
-  return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
 }
 
 function calculateProgressPercentage(
