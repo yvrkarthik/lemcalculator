@@ -52,22 +52,12 @@ const t1: IBankData = {
         loanBetween80to85: 0.25
       }
     },
-    // {
-    //   name: "Westpac",
-    //   bankWebsite: "https://www.westpac.co.nz",
-    //   bankLvrLink: "https://www.westpac.co.nz",
-    //   fee: {
-    //     loanOver95: 1.15,
-    //     loanBetween90To95: 1.0,
-    //     loanBetween85to90: 0.75,
-    //     loanBetween80to85: 0.35
-    //   }
-    // },
+
     {
       name: "Kiwibank",
       bankWebsite: "https://www.kiwibank.co.nz/",
       bankLvrLink:
-        "https://www.kiwibank.co.nz/personal-banking/rates-and-fees/fees/home-loans/",
+          "https://www.kiwibank.co.nz/personal-banking/rates-and-fees/fees/home-loans/",
       fee: {
         loanOver95: 0,
         loanBetween90To95: 0.8,
@@ -77,15 +67,9 @@ const t1: IBankData = {
     }
   ]
 };
-function getBanks() {
-  const bankList: string[] = [];
-  t1.bankData.map(bankName => bankList.push(bankName.name));
-  return bankList.sort();
-}
-export function getBanksData(bankName: string) {
-  return t1.bankData.filter(b => b.name === bankName);
-}
-export function getBankDetails() {
+
+function getBankDetails() {
   return t1;
 }
-export { getBanks, IBankDetails };
+
+export {IBankDetails, getBankDetails};

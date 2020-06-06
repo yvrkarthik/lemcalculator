@@ -3,17 +3,12 @@ import InputTextbox from "./common/inputtextbox";
 import Alert from "./common/alert";
 import RowHeader from "./common/rowheader";
 import FeeTable from "./feetable";
-import { getBankDetails } from "../services/banklist";
-import FeeTableindollars from "./feetableindollars";
+import {getBankDetails} from "../services/banklist";
+import FeeTableInDollars from "./feeTableInDollars";
 import Awesome from "./common/Awesome";
 import Percentage from "./common/progressbar";
-import {
-  isItValidInput,
-  calculateRequiredDeposit,
-  calculateProgressPercentage,
-  calculateMyDepositWorth
-} from "../utilities/helpers";
-import { ErrorMessages } from "../utilities/appconstants";
+import {calculateMyDepositWorth, calculateProgressPercentage, calculateRequiredDeposit, isItValidInput} from "../utilities/helpers";
+import {ErrorMessages} from "../utilities/appconstants";
 
 export interface ILvrCalculatorState {
   percentageOfDeposit: string;
@@ -103,17 +98,17 @@ class ILvrCalculator extends React.Component<{}, ILvrCalculatorState> {
             this.state.myDeposit !== "" &&
             parseInt(this.state.percentageOfDeposit) >= 5 &&
             parseInt(this.state.percentageOfDeposit) < 20 ? (
-              <React.Fragment>
-                <RowHeader headerText="LEM Fees per Bank in $$ :" />
-                <FeeTableindollars
-                  bankdetails={getBankDetails()}
-                  amountToCalculateLem={
-                    parseInt(this.state.propertyValue) -
-                    parseInt(this.state.myDeposit)
-                  }
-                  depositPercentage={parseInt(this.state.percentageOfDeposit)}
-                />
-              </React.Fragment>
+                <React.Fragment>
+                  <RowHeader headerText="LEM Fees per Bank in $$ :"/>
+                  <FeeTableInDollars
+                      bankdetails={getBankDetails()}
+                      amountToCalculateLem={
+                        parseInt(this.state.propertyValue) -
+                        parseInt(this.state.myDeposit)
+                      }
+                      depositPercentage={parseInt(this.state.percentageOfDeposit)}
+                  />
+                </React.Fragment>
             ) : (
               ""
             )}

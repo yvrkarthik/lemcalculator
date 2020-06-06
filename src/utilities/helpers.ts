@@ -1,4 +1,4 @@
-import { AppConstants } from "./appconstants";
+import {AppConstants} from "./appconstants";
 
 /**
  * This function is used to test whether the given string is valid.
@@ -10,10 +10,10 @@ import { AppConstants } from "./appconstants";
  * // returns true
  */
 function isItValidInput(
-  valueToBeTested: string,
-  regexPatternToTestAgainst: RegExp
+    valueToBeTested: string,
+    regexPatternToTestAgainst: RegExp
 ): boolean {
-  return regexPatternToTestAgainst.test(valueToBeTested) ? true : false;
+    return regexPatternToTestAgainst.test(valueToBeTested);
 }
 
 /**
@@ -26,14 +26,8 @@ function isItValidInput(
  *    90000.00
  */
 function calculateRequiredDeposit(propertyValue: number): string {
-  if (
-    // isNaN(propertyValue) ||
-    isItValidInput(propertyValue.toString(), RegExp("[a-z]")) ||
-    propertyValue < 0
-  ) {
-    return "";
-  }
-  return (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
+    return isItValidInput(propertyValue.toString(), RegExp("[a-z]")) ||
+    propertyValue < 0 ? "" : (AppConstants.requiredDepositPercentage * propertyValue).toFixed(2);
 }
 
 /**
@@ -47,50 +41,45 @@ function calculateRequiredDeposit(propertyValue: number): string {
  *    20
  */
 function calculateProgressPercentage(
-  depositValue: number,
-  requiredDeposit: number
+    depositValue: number,
+    requiredDeposit: number
 ): string {
-  if (
-    isNaN(depositValue) ||
+    return isNaN(depositValue) ||
     isNaN(requiredDeposit) ||
     depositValue === 0 ||
-    requiredDeposit === 0
-  ) {
-    return "";
-  }
-  return ((depositValue / requiredDeposit) * 100).toString();
+    requiredDeposit === 0 ? "" : ((depositValue / requiredDeposit) * 100).toString();
 }
+
 /**
  * This function calculates the required deposit %
- * @param depositValue number
- * @param requiredDeposit number
  * @returns string
  * @example
  * calculateProgressPercentage(90000, 450000)
  * // returns a string value with 2 decimals
  *    20.00
+ * @param deposit
+ * @param propertyPrice
  */
 function calculateMyDepositWorth(
-  deposit: number,
-  propertyPrice: number
+    deposit: number,
+    propertyPrice: number
 ): string {
-  if (deposit > propertyPrice) {
-    return "";
-  } else if (isNaN(deposit) || isNaN(propertyPrice)) {
-    return "";
-  }
-  const percentage = ((deposit / propertyPrice) * 100).toFixed(1);
-  return percentage;
+    if (deposit > propertyPrice) {
+        return "";
+    } else if (isNaN(deposit) || isNaN(propertyPrice)) {
+        return "";
+    }
+    return ((deposit / propertyPrice) * 100).toFixed(1);
 }
 
 function calculateLEMFees(number1: number, number2: number): number {
-  return (number1 / 100) * number2;
+    return (number1 / 100) * number2;
 }
 
 export {
-  isItValidInput,
-  calculateRequiredDeposit,
-  calculateProgressPercentage,
-  calculateMyDepositWorth,
-  calculateLEMFees
+    isItValidInput,
+    calculateRequiredDeposit,
+    calculateProgressPercentage,
+    calculateMyDepositWorth,
+    calculateLEMFees
 };
